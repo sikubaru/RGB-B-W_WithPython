@@ -1,0 +1,40 @@
+1. First, we should install some packages on the command prompt.
+
+pip install numpy
+pip install imageio
+pip install opencv-python
+pip install scipy
+
+2. Select the photo and save the photo in directory c. I make folder “Sketch” on directory C and put the picture there.
+
+3. After that, copy the syntax below on text editor and save the syntax on the same folder with the picture with the “py” format. I’m using sublime text.
+
+import numpy as np
+import imageio
+import scipy.ndimage
+import cv2
+img="your file picture.jpg"
+def grayscale(rgb):
+ return np.dot(rgb[...,:3],[0.999,0.001,0.002])
+def  dodge(front,back):
+  result=front*100/(255-back)
+  result[result>255]=255
+  result[back==255]=255
+  return result.astype('uint8')
+s=imageio.imread(img)
+g=grayscale(s)
+i=255-g
+b=scipy.ndimage.filters.gaussian_filter(i,sigma=120)
+r=dodge(b,g)
+cv2.imwrite('your file picture_sketch.jpg',r)
+
+4. After that, copy the syntax below on your command prompt.
+
+cd (your folder name)..
+(your folder name)>python (your syntax name).py 
+
+5.The picture will be automatically stored in the folder that was created before. 
+
+6. ENJOY IT
+
+
